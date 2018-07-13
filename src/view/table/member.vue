@@ -515,7 +515,7 @@
         return false
       },
       loadXlx () {
-        window.location.href = process.env.API + this.getWbkUrl('filesDown') + '?path=/xheditor/soft/template/template_member.xls'
+        window.location.href = process.env.API + this.getWbkUrl('filesDown') + '?path=/soft/template/template_member.xls'
       }
     },
     mounted () {
