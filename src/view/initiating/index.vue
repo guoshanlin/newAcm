@@ -197,7 +197,8 @@
              <div class="float-r form-fill">
                <div class="t-left">
                    <div id="main">
-                     <mavon-editor ref="mavon" @change="mavonChange"  @imgAdd="$imgAdd" placeholder="编辑详情..."/>
+                     <!--<mavon-editor ref="mavon" @change="mavonChange" v-model="fromVal.mavonValue" @imgAdd="$imgAdd" placeholder="编辑详情..."/>-->
+                     <v-ueditor v-model="fromVal.mavonValue"></v-ueditor>
                    </div>
                </div>
              </div>
@@ -229,7 +230,7 @@
      <div class="form-sub">
          <Row type="flex" justify="center" class="code-row-bg">
            <i-col><i-button type="primary" @click="release" :disabled="disabled">发布</i-button></i-col>
-        <!--   <i-col><i-button>存草稿</i-button></i-col>-->
+           <i-col><i-button @click="release(1)">存草稿</i-button></i-col>
         <!--   <i-col><i-button>预览</i-button></i-col>-->
          </Row>
      </div>
@@ -237,6 +238,7 @@
 </template>
 
 <script>
+  import vUeditor from 'components/v-ueditor'
   import iTime from 'components/date-picker/index.vue'
   import iForm from 'components/registration-form/index.vue'
   import iSpecies from 'components/ticket-species/index.vue'
@@ -267,6 +269,7 @@
               }
       }
       return {
+        id: this.$route.query.id,
     //    imgHtml: '<div style="height:300px; line-height: 300px" class="c3">图片格式为1080 * 640px，大小不超过2M</div>',
         imgHtml: '<div style="height:300px; line-height: 300px" class="c3">大小不超过4M</div>',
         fromVal: {
@@ -291,7 +294,8 @@
           tag: [],
           abstract: '',
           detailedContent: '',
-          agenda: ''
+          agenda: '',
+          mavonValue: ''
         },
         select: {
           province: province,
@@ -407,21 +411,55 @@
     },
     computed: {
       ...mapGetters([
-        'userData'
+        'userData',
+        'draftActivity'
       ])
     },
     components: {
       iForm,
       iSpecies,
       iTime,
-      mavonEditor
+      mavonEditor,
+      vUeditor
     },
     created () {
       setTimeout(() => {
         this.activitysConfig()
+
+        if(this.id) {
+          this.initData()
+        }
       }, 20)
     },
     methods: {
+      initData () {
+        if (!this.draftActivity) this.routePush('/meeting')
+        this.fromVal.title = this.draftActivity.name
+        this.fromVal.address.province = this.draftActivity.city1
+        this.fromVal.address.city = this.draftActivity.city2
+        this.fromVal.address.area = this.draftActivity.city3
+        this.fromVal.address.address = this.draftActivity.address
+        this.fromVal.posterUrl = this.draftActivity.posterUrl
+        this.dataFile = this.draftActivity.posterUrl
+        this.fromVal.number = this.draftActivity.number
+        this.fromVal.applyBeginTime = this.draftActivity.applyBeginTime.time
+        this.fromVal.applyEndTime = this.draftActivity.applyEndTime.time
+        this.fromVal.beginTime = this.draftActivity.beginTime.time
+        this.fromVal.endTime = this.draftActivity.endTime.time
+        this.fromVal.classify = this.draftActivity.style + ',' + this.draftActivity.configId
+        this.fromVal.tag = this.draftActivity.label.split(',')
+        this.fromVal.abstract = this.draftActivity.remark
+        this.fromVal.agenda = this.draftActivity.agenda
+        this.fromVal.mavonValue = this.draftActivity.content
+        this.imgHtml = '<img class="img" src=" ' + (process.env.NODE_ENV === 'production' ? this.draftActivity.posterUrl : process.env.API + this.draftActivity.posterUrl) + '">'
+        this.$refs.species.setTicketData({
+          isNeedPay: this.draftActivity.isNeedPay,
+          mbPrice: this.draftActivity.mbPrice,
+          nonMBPrice: this.draftActivity.nonMBPrice
+        })
+        this.$refs.timePicker.setValue(['beginTime', 'endTime'], [new Date(this.draftActivity.beginTime.time).format('yyyy-MM-dd hh:mm:ss'), new Date(this.draftActivity.endTime.time).format('yyyy-MM-dd hh:mm:ss')])
+        this.$refs.timeApply.setValue(['applyBeginTime', 'applyEndTime'], [new Date(this.draftActivity.applyBeginTime.time).format('yyyy-MM-dd hh:mm:ss'), new Date(this.draftActivity.applyEndTime.time).format('yyyy-MM-dd hh:mm:ss')])
+      },
       saveFrom (val) {
         console.log('保存设置表单内容')
         this.registrationForm = false
@@ -444,13 +482,13 @@
       saveTicket (val) {
 
       },
-      release () {
+      release (v) {
         const ticket = this.$refs.species.getTicketData()
         const _params = {
           type: '活动',
           name: this.fromVal.title, // 活动名称
           demand: '', // 活动要求
-          content: this.mavonValue, // 活动内容
+          content: this.fromVal.mavonValue, // 活动内容
           number: this.fromVal.number, // 人数
           isNeedPay: ticket[0].type == 'free' ? 0 : 1, // 是否付费【1付费，0免费】
           mbPrice: ticket[0].type == 'free' ? '' : ticket[0].vPrice, // 会员价格
@@ -459,7 +497,7 @@
           city2: this.fromVal.address.city, // 地址
           city3: this.fromVal.address.area, // 地址
           address: this.fromVal.address.address, // 地址
-          posterUrl: this.fromVal.posterUrl, // 海报url
+          //posterUrl: this.fromVal.posterUrl, // 海报url
           applyBeginTime: this.$refs.timeApply.getValue().applyBeginTime, // 活动开始时间
           applyEndTime: this.$refs.timeApply.getValue().applyEndTime, // 活动开始时间
           beginTime: this.$refs.timePicker.getValue().beginTime, // 活动开始时间
@@ -472,19 +510,27 @@
           remark: this.fromVal.abstract,
           agenda: this.fromVal.agenda
         }
-        if (this.dataFile == '') {
-          this.$Message.error('请上传活动海报')
-          return
+        if(v == 1) {
+          _params.status = -2
         }
-        let fileData = new FormData()
-          fileData.append('file', this.dataFile)
+        if(this.id){
+          _params.id = this.id
+        }
+        if(v != 1){
+          if (this.dataFile == '') {
+            this.$Message.error('请上传活动海报')
+            return
+          }
+        }
 
-          fileData.append('type', 'account')
-         for (let key in _params) {
-           fileData.append('' + key, _params[key])
-         }
-          _params.file = fileData
-        if (this.verification(_params, this.msgTip)) {
+        let fileData = new FormData()
+        if(this._isChangePostImg()) fileData.append('file', this.dataFile)
+        fileData.append('type', 'account')
+        for (let key in _params) {
+          fileData.append('' + key, _params[key])
+        }
+        _params.file = fileData
+        if (v == 1 || this.verification(_params, this.msgTip)) {
             this.disabled = true
             this.requestFile('post', 'activitys', fileData).then((data) => {
               if (data.success) {
@@ -512,6 +558,7 @@
 
         this.imgHtml = '<img class="img" src=" ' + path + '">'
         this.dataFile = file
+
         return false
         this.requestFile('POST', 'upload', formData).then((data) => {
          // this.fromVal.posterUrl = process.env.API + data.msg
@@ -606,6 +653,9 @@
             this.$refs.mavon.$img2Url(pos, data.msg)
           }
         })
+      },
+      _isChangePostImg (){
+        return (typeof  this.dataFile) == 'object'
       }
     }
   }

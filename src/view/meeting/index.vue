@@ -32,6 +32,7 @@
             <MenuItem name="2">进行中</MenuItem>
             <MenuItem name="99">已结束</MenuItem>
             <MenuItem name="-1">未通过</MenuItem>
+            <MenuItem name="-2">草稿</MenuItem>
           </Menu>
 
           <div class="list-wrapper">

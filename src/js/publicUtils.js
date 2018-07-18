@@ -90,8 +90,10 @@ export default {
      * @returns {string}
      */
     Vue.prototype.getActiveStatus = function (number) {
-      /*    【-1：审核不通过】【0：未审核】【1：未开始】【2：执行中】【3：暂停】【99：结束】*/
+      /*    【-2：草稿】【-1：审核不通过】【0：未审核】【1：未开始】【2：执行中】【3：暂停】【99：结束】*/
       switch ('' + number) {
+        case '-2':
+          return '草稿'
         case '-1':
           return '审核未通过'
         case '0':

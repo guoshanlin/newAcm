@@ -99,6 +99,15 @@
         }
         return this.value
       },
+      setValue (ids, values) {
+        if (Object.prototype.toString.call(ids) === '[object Array]') {
+          for (let i = 0, ilen = ids.length; i < ilen; i++) {
+            document.getElementById('' + ids[i]).value = values[i]
+          }
+        } else {
+          document.getElementById(ids).value = values
+        }
+      },
       setEmptyBTime () {
         this.value[this.ids[1]] = ''
         this.setValueEmpty(this.ids[0])

@@ -6,6 +6,9 @@ const mutations = {
   },
   [types.SET_ISLOGIN] (state, data) {
     state.isLogin = data
+  },
+  [types.SET_DRAFT_ACTIVITY] (state, data) {
+    state.draftActivity = data
   }
 }
 export default mutations

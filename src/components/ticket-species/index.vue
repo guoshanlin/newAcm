@@ -328,6 +328,11 @@
       },
       getTicketData () {
         return this.data
+      },
+      setTicketData (data) {
+        this.data[0].type = data.isNeedPay == 0 ? 'free' : 'charge'
+        this.data[0].vPrice = data.mbPrice
+        this.data[0].price = data.nonMBPrice
       }
     },
     beforeCreate () {

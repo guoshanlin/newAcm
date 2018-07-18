@@ -35,7 +35,10 @@
                 </div>
               </div>
           </div>
-          <div>
+          <div v-if="row.status == -2">
+            <Button type="primary" @click="editActivity">编辑</Button>
+          </div>
+          <div v-else>
             <Button type="primary" @click="routePush('/base/overview',row.id)">管理</Button>
             <br>
             <Button v-if='row.status == 1 && row.numberActual < row.number' class="m-t10" @click="cancel">取消</Button>
@@ -73,6 +76,9 @@
 </template>
 
 <script>
+
+  import {mapMutations} from 'vuex'
+
   export default {
     name: 'index',
     data () {
@@ -85,6 +91,9 @@
       button: ''
     },
     methods: {
+      ...mapMutations({
+        setDraftActivity: 'SET_DRAFT_ACTIVITY'
+      }),
       cancel () {
         this.requestAjax('post', 'activitys', {id: this.row.id, status: 3}).then((data) => {
           if (data.success) {
@@ -96,6 +105,10 @@
         }, () => {
           this.$Message.success('取消失败')
         })
+      },
+      editActivity () {
+        this.setDraftActivity(this.row)
+        this.routePush('/initiatingActivity', this.row.id)
       }
     }
   }
