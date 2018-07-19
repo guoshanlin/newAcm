@@ -187,7 +187,7 @@
           code: ''
         },
         loading: false,
-        loginUrl: 'https://open.weixin.qq.com/connect/qrconnect?appid=wx63818a2a17637139&redirect_uri=https://daas.coreware.cn:8443/gather/login?local_url='+local_url+'&response_type=code&scope=snsapi_login&state='
+        loginUrl: 'https://open.weixin.qq.com/connect/qrconnect?appid=wx63818a2a17637139&redirect_uri=https://www.juniwota.com/gather/login?local_url='+local_url+'&response_type=code&scope=snsapi_login&state='
       }
     },
     computed: {

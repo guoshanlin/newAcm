@@ -52,7 +52,7 @@
         this.requestAjax(_type, _url, _params).then((data) => {
           if (data.success) {
             this.row = data.data.rows[0]
-            this.url = 'https://daas.coreware.cn:8443/gather' + data.data.rows[0].appUrlImg
+            this.url = 'https://www.juniwota.com/gather' + data.data.rows[0].appUrlImg
           }
         })
       }

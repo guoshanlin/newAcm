@@ -55,7 +55,7 @@
         this.requestAjax('GET', 'activitys', {id: this.$route.query.id}).then((data) => {
           if (data.success) {
             this.data = data.data.rows[0]
-            this.url = 'https://daas.coreware.cn:8443/gather/files/down?path=' + this.data.signUrl
+            this.url = 'https://www.juniwota.com/gather/files/down?path=' + this.data.signUrl
           }
         })
       }

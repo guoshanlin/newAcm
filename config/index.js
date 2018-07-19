@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api/':{
-        target:'https://daas.coreware.cn:8443/gather/',
+        target:'https://www.juniwota.com/gather/',
         //target:'http://192.168.1.248/acm/',
         //target:'http://192.168.1.246/acm/',
         changeOrigin:true,

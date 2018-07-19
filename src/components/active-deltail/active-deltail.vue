@@ -127,7 +127,7 @@
           for (let i = 0; i < damo.length; i++) {
             let item = damo[i]
             if (item.src.indexOf('files/xheditor') != -1) {
-              item.src = process.env.NODE_ENV === 'production' ? process.env.API + 'files' + item.src.split('files')[1] : 'https://daas.coreware.cn:8443/gather/files' + item.src.split('files')[1]
+              item.src = process.env.NODE_ENV === 'production' ? process.env.API + 'files' + item.src.split('files')[1] : 'https://www.juniwota.com/gather/files' + item.src.split('files')[1]
               item.style = 'width: 100%;'
               // item.width = '300'
             } else {
@@ -161,7 +161,7 @@
             this.$nextTick(() => {
               this.bindAClick(document.querySelectorAll('#content-deltail img'))
               this.posterUrl = this.url + this.row.posterUrl
-              this.imgSrc = this.row.appUrlImg && this.row.appUrlImg != '' ? 'https://daas.coreware.cn:8443/gather' + this.row.appUrlImg : ''
+              this.imgSrc = this.row.appUrlImg && this.row.appUrlImg != '' ? 'https://www.juniwota.com/gather' + this.row.appUrlImg : ''
               this.$emit('change', this.row.status)
             })
           }
