@@ -23,7 +23,7 @@
             <active-deltail :id="rowId" type="info" ref="activeItem"></active-deltail>
           </div>
 
-          <!--<div id="link" style="opacity:0;">https://pmp.coreware.cn:8443/gather/deltail?id={{rowId}}</div>-->
+          <!--<div id="link" style="opacity:0;">https://daas.coreware.cn:8443/gather/deltail?id={{rowId}}</div>-->
         </div>
         <div class="sidebar">
             <div class="sticky box triangle b m-b10">

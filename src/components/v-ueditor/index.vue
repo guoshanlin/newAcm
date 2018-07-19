@@ -17,7 +17,7 @@
           name="file"
           accept="image/*"
           :on-success="successFile"
-          action="https://pmp.coreware.cn:8443/gather/files/upload">
+          action="https://daas.coreware.cn:8443/gather/files/upload">
           <div style="padding: 20px 0">
             <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
             <p>点击或拖拽上传</p>

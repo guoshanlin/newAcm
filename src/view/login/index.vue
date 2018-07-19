@@ -147,7 +147,7 @@
           callback()
         }
       }
-
+      const local_url = window.location.host
       return {
         // switchFlag: this.$route.path == '/login',
         switchFlag: true,
@@ -187,7 +187,7 @@
           code: ''
         },
         loading: false,
-        loginUrl: 'https://open.weixin.qq.com/connect/qrconnect?appid=wx63818a2a17637139&redirect_uri=https://pmp.coreware.cn:8443/gather/login&response_type=code&scope=snsapi_login&state='
+        loginUrl: 'https://open.weixin.qq.com/connect/qrconnect?appid=wx63818a2a17637139&redirect_uri=https://daas.coreware.cn:8443/gather/login?local_url='+local_url+'&response_type=code&scope=snsapi_login&state='
       }
     },
     computed: {
@@ -202,6 +202,7 @@
           this.loading = true
           this.switchFlag = false
           this.wechatLogin()
+          console.log("param::::::"+JSON.stringify(this.$route.query))
         }
       }, 20)
     },

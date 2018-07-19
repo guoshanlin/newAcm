@@ -67,7 +67,7 @@
     },
     watch: {
       row (val) {
-        this.loadImg = process.env.NODE_ENV === 'production' ? process.env.API + 'files' + val.posterUrl.split('files')[1] : 'https://pmp.coreware.cn:8443/gather' + val.posterUrl
+        this.loadImg = process.env.NODE_ENV === 'production' ? process.env.API + 'files' + val.posterUrl.split('files')[1] : 'https://daas.coreware.cn:8443/gather' + val.posterUrl
       }
     },
     methods: {
@@ -81,7 +81,7 @@
     beforeCreate () {
       this.$nextTick(() => {
         if(this.row.posterUrl){
-          this.loadImg = process.env.NODE_ENV === 'production' ? process.env.API + 'files' + this.row.posterUrl.split('files')[1] : 'https://pmp.coreware.cn:8443/gather' + this.row.posterUrl
+          this.loadImg = process.env.NODE_ENV === 'production' ? process.env.API + 'files' + this.row.posterUrl.split('files')[1] : 'https://daas.coreware.cn:8443/gather' + this.row.posterUrl
         }
       })
     }

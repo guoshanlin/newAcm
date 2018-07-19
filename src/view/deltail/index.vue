@@ -40,7 +40,7 @@
             // item.crossOrigin = 'Anonymous'
             if (item.src.indexOf('files/xheditor') != -1) {
               item.style.width = "auto"
-              item.src = process.env.NODE_ENV === 'production' ? process.env.API + 'files' + item.src.split('files')[1] : 'https://pmp.coreware.cn:8443/gather/' + 'files' + item.src.split('files')[1]
+              item.src = process.env.NODE_ENV === 'production' ? process.env.API + 'files' + item.src.split('files')[1] : 'https://daas.coreware.cn:8443/gather/' + 'files' + item.src.split('files')[1]
             }
           }
         }
