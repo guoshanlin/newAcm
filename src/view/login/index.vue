@@ -101,7 +101,7 @@
 <script>
 
   import utils from 'js/utils'
-  import {setUserInfo, setIsLogin} from 'js/cache'
+  import {setUserInfo, setIsLogin, setMemberId} from 'js/cache'
   import {mapMutations, mapGetters} from 'vuex'
 
   export default {
@@ -221,7 +221,8 @@
     methods: {
       ...mapMutations({
         setUserDate: 'SET_USERDATA',
-        setIsLogin: 'SET_ISLOGIN'
+        setIsLogin: 'SET_ISLOGIN',
+        setVuxMemberId: 'SET_MEMBER_ID'
       }),
       switchEvent () {
         this.loading = false
@@ -246,6 +247,8 @@
             this.setUserDate(data.data.member)
             setUserInfo(data.data.member)
             setIsLogin(true)
+            setMemberId(data.data.member.id)
+            this.setVuxMemberId(data.data.member.id)
             if (this.$route.query.oldPath) {
               this.routePush(this.$route.query.oldPath)
             } else {
@@ -288,6 +291,8 @@
             this.setUserDate(data.data.member)
             setUserInfo(data.data.member)
             setIsLogin(true)
+            setMemberId(data.data.member.id)
+            this.setVuxMemberId(data.data.member.id)
             this.routePush('/index')
           } else {
             this.loading = false

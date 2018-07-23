@@ -31,6 +31,9 @@ export default {
           params: newParams,
           xhrFields: {
             withCredentials: true
+          },
+          headers: {
+            'memberId': store.state.memberId
           }
         }).then((data) => {
           if (this.isOvertime(data.data)) {
@@ -56,7 +59,10 @@ export default {
           method: type,
           url: this.getWbkUrl(url, urlId),
           data: data,
-          withCredentials: true
+          withCredentials: true,
+          headers: {
+            'memberId': store.state.memberId
+          }
         }).then((data) => {
           if (this.isOvertime(data.data)) {
             resolve(data.data)
