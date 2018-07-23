@@ -36,7 +36,7 @@
 		//工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的重新定义
 		,
 		toolbars: [
-			["more", "|", 'source', '|','undo', 'redo', "fontsize", "|", "blockquote", "horizontal", "|", "removeformat", "|", /*"insertvideo2",*/ "insertimage2", "fullscreen"],
+			[/*"more", "|",*/ 'source', '|','undo', 'redo', "fontsize", "|", "blockquote", "horizontal", "|", "removeformat", "|", /*"insertvideo2",*/ "insertimage2"/*, "fullscreen"*/],
 			["bold", "italic", "underline", "forecolor", "backcolor", "|", "justifyleft", "justifycenter", "justifyright", "|", "rowspacingtop", "rowspacingbottom", "lineheight", "|", "insertorderedlist", "insertunorderedlist", "|", "imagenone", "imageleft", "imageright", "imagecenter"]
 		],
 		// 初始化编辑器宽度

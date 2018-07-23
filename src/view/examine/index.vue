@@ -12,7 +12,7 @@
       <Menu mode="horizontal" active-name="0" @on-select="menuSelect" class="menu-tab">
         <MenuItem name="0">待审核</MenuItem>
         <MenuItem name=">0">已通过</MenuItem>
-        <MenuItem name="<0">未通过</MenuItem>
+        <MenuItem name="-1">未通过</MenuItem>
       </Menu>
       <div class="list-wrapper">
         <ul class="list">
